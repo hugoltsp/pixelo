@@ -5,7 +5,6 @@ import java.util.Arrays;
 public class YoreImage {
 
 	private byte[] image;
-	private int size;
 	private String name;
 
 	public byte[] getImage() {
@@ -17,11 +16,7 @@ public class YoreImage {
 	}
 
 	public int getSize() {
-		return size;
-	}
-
-	public void setSize(int size) {
-		this.size = size;
+		return image == null ? 0 : image.length;
 	}
 
 	public String getName() {
@@ -34,7 +29,7 @@ public class YoreImage {
 
 	@Override
 	public String toString() {
-		return "YoreImage [image=" + Arrays.toString(image) + ", size=" + size + ", name=" + name + "]";
+		return "YoreImage [getSize()=" + getSize() + ", getName()=" + getName() + "]";
 	}
 
 }
