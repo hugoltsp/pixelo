@@ -22,6 +22,7 @@
 	<modules>
 		<module>yore-api</module>
 		<module>yore-app</module>
+		<module>yore-domain</module>
 	</modules>
 
 	<dependencies>
