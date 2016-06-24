@@ -23,9 +23,9 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
 @Component
-public class YoreImageVerticleResource extends AbstractVerticle {
+public class YoreImageVerticle extends AbstractVerticle {
 
-	private static final Logger log = LoggerFactory.getLogger(YoreImageVerticleResource.class);
+	private static final Logger log = LoggerFactory.getLogger(YoreImageVerticle.class);
 
 	private static final String SERVER_PORT = "server.port";
 
@@ -33,7 +33,7 @@ public class YoreImageVerticleResource extends AbstractVerticle {
 	private final String post;
 
 	@Inject
-	public YoreImageVerticleResource(Environment env) {
+	public YoreImageVerticle(Environment env) {
 		this.serverPort = env.getProperty(SERVER_PORT, int.class, 8080);
 		this.post = env.getProperty("yore.api.route.pixelate", String.class);
 	}

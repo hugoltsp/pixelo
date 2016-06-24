@@ -5,11 +5,12 @@ import javax.inject.Inject;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.resource.YoreImageResource;
 import com.teles.yore.domain.api.YoreRequest;
 import com.teles.yore.domain.api.YoreResponse;
 
-import feign.Feign;
+import feign.hystrix.HystrixFeign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 
@@ -24,8 +25,8 @@ public class YoreClient implements YoreImageResource {
 	}
 
 	@Override
-	public YoreResponse pixelate(YoreRequest req) {
-		YoreResponse response = Feign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder())
+	public HystrixCommand<YoreResponse> pixelate(YoreRequest req) {
+		HystrixCommand<YoreResponse> response = HystrixFeign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder())
 				.target(YoreImageResource.class, this.url).pixelate(req);
 		return response;
 	}

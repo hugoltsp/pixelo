@@ -14,6 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.YoreClient;
 import com.teles.yore.domain.api.YoreImage;
 import com.teles.yore.domain.api.YoreRequest;
@@ -40,7 +41,8 @@ public class YoreClientTest {
 		req.setYoreImage(yoreImage);
 		
 		YoreClient yoreClient = new YoreClient(env);
-		YoreResponse pixelate = yoreClient.pixelate(req);
+		HystrixCommand<YoreResponse> cmd = yoreClient.pixelate(req);
+		YoreResponse pixelate = cmd.queue().get();
 		IOUtils.write(pixelate.getYoreImage().getImage(), new FileOutputStream("D:/" + pixelate.getYoreImage().getName()));
 	}
 
