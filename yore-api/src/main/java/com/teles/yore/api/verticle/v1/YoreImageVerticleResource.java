@@ -1,9 +1,11 @@
-package com.teles.yore.api.resource.v1;
+package com.teles.yore.api.verticle.v1;
 
 import java.io.IOException;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,8 @@ import io.vertx.ext.web.RoutingContext;
 @Component
 public class YoreImageVerticleResource extends AbstractVerticle {
 
+	private static final Logger log = LoggerFactory.getLogger(YoreImageVerticleResource.class);
+	
 	private static final String SERVER_PORT = "server.port";
 
 	private final int serverPort;
@@ -49,7 +53,7 @@ public class YoreImageVerticleResource extends AbstractVerticle {
 
 	private final void pixelate(RoutingContext routingContext) {
 		YoreRequest request = Json.decodeValue(routingContext.getBodyAsString(), YoreRequest.class);
-		
+		log.debug("Pixelating Image - Size: {}, PixelSize: {}, Name: {}", request.getYoreImage().getSize(), request.getPixelSize(),request.getYoreImage().getName());
 		try {
 			byte[] pixelate = Pixelator.pixelate(request.getYoreImage().getImage(), request.getPixelSize());
 			YoreResponse response = new YoreResponse();
@@ -65,7 +69,7 @@ public class YoreImageVerticleResource extends AbstractVerticle {
 					.setStatusCode(HttpResponseStatus.OK.code()).end(Json.encodePrettily(response));
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("Error: ", e);
 			YoreResponse response = new YoreResponse();
 			response.setMessage("Error");
 			routingContext.response().putHeader("content-type", "application/json; charset=utf-8")

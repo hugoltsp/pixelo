@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.teles.yore.api.resource.v1.YoreImageVerticleResource;
+import com.teles.yore.api.verticle.v1.YoreImageVerticleResource;
 
 import io.vertx.core.Vertx;
 
