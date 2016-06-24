@@ -1,7 +1,5 @@
 package com.teles.yore.domain.api;
 
-import java.util.Arrays;
-
 public class YoreImage {
 
 	private byte[] image;
