@@ -20,12 +20,13 @@ import io.vertx.core.Future;
 import io.vertx.core.json.Json;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
 
 @Component
 public class YoreImageVerticleResource extends AbstractVerticle {
 
 	private static final Logger log = LoggerFactory.getLogger(YoreImageVerticleResource.class);
-	
+
 	private static final String SERVER_PORT = "server.port";
 
 	private final int serverPort;
@@ -40,6 +41,8 @@ public class YoreImageVerticleResource extends AbstractVerticle {
 	@Override
 	public void start(Future<Void> startFuture) throws Exception {
 		Router router = Router.router(this.vertx);
+
+		router.route(this.post + "*").handler(BodyHandler.create());
 		router.post(this.post).handler(this::pixelate);
 		this.vertx.createHttpServer().requestHandler(router::accept)
 				.listen(config().getInteger(SERVER_PORT, this.serverPort), result -> {
@@ -52,8 +55,10 @@ public class YoreImageVerticleResource extends AbstractVerticle {
 	}
 
 	private final void pixelate(RoutingContext routingContext) {
-		YoreRequest request = Json.decodeValue(routingContext.getBodyAsString(), YoreRequest.class);
-		log.debug("Pixelating Image - Size: {}, PixelSize: {}, Name: {}", request.getYoreImage().getSize(), request.getPixelSize(),request.getYoreImage().getName());
+		String bodyAsString = routingContext.getBodyAsString();
+		YoreRequest request = Json.decodeValue(bodyAsString, YoreRequest.class);
+		log.debug("Pixelating Image - Size: {}, PixelSize: {}, Name: {}", request.getYoreImage().getSize(),
+				request.getPixelSize(), request.getYoreImage().getName());
 		try {
 			byte[] pixelate = Pixelator.pixelate(request.getYoreImage().getImage(), request.getPixelSize());
 			YoreResponse response = new YoreResponse();

@@ -4,6 +4,7 @@ public class YoreImage {
 
 	private byte[] image;
 	private String name;
+	private int size;
 
 	public byte[] getImage() {
 		return image;
@@ -11,10 +12,11 @@ public class YoreImage {
 
 	public void setImage(byte[] image) {
 		this.image = image;
+		this.size = image == null ? 0 : image.length;
 	}
 
 	public int getSize() {
-		return image == null ? 0 : image.length;
+		return this.size;
 	}
 
 	public String getName() {

@@ -3,6 +3,7 @@ package com.teles.yore.api.client;
 import javax.inject.Inject;
 
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import com.teles.yore.api.client.resource.YoreImageResource;
 import com.teles.yore.domain.api.YoreRequest;
@@ -12,6 +13,7 @@ import feign.Feign;
 import feign.jackson.JacksonDecoder;
 import feign.jackson.JacksonEncoder;
 
+@Component
 public class YoreClient implements YoreImageResource {
 
 	private final String url;
