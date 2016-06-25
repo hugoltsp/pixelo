@@ -1,7 +1,5 @@
 package com.teles.yore.api.verticle.v1;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.teles.yore.api.util.Pixelator;
 import com.teles.yore.domain.api.YoreImage;
 import com.teles.yore.domain.api.YoreRequest;
-import com.teles.yore.domain.api.YoreResponse;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.AbstractVerticle;
@@ -57,28 +54,23 @@ public class YoreImageVerticle extends AbstractVerticle {
 	private final void pixelate(RoutingContext routingContext) {
 		String bodyAsString = routingContext.getBodyAsString();
 		YoreRequest request = Json.decodeValue(bodyAsString, YoreRequest.class);
-		log.debug("Pixelating Image - Size: {}, PixelSize: {}, Name: {}", request.getYoreImage().getSize(),
-				request.getPixelSize(), request.getYoreImage().getName());
+
 		try {
 			byte[] pixelate = Pixelator.pixelate(request.getYoreImage().getImage(), request.getPixelSize());
-			YoreResponse response = new YoreResponse();
 
 			YoreImage yoreImage = new YoreImage();
 			yoreImage.setImage(pixelate);
 			yoreImage.setName(request.getYoreImage().getName());
 
-			response.setMessage("Ok");
-			response.setYoreImage(yoreImage);
-
 			routingContext.response().putHeader("content-type", "application/json; charset=utf-8")
-					.setStatusCode(HttpResponseStatus.OK.code()).end(Json.encodePrettily(response));
-
-		} catch (IOException e) {
-			log.error("Error: ", e);
-			YoreResponse response = new YoreResponse();
-			response.setMessage("Error");
+					.setStatusCode(HttpResponseStatus.OK.code()).end(Json.encodePrettily(yoreImage));
+		} catch (Exception e) {
+			log.info("Image - Size: {}, PixelSize: {}, Name: {}", request.getYoreImage().getSize(),
+					request.getPixelSize(), request.getYoreImage().getName());
+			log.info("Error: ", e);
 			routingContext.response().putHeader("content-type", "application/json; charset=utf-8")
-					.setStatusCode(HttpResponseStatus.INTERNAL_SERVER_ERROR.code()).end(Json.encodePrettily(response));
+					.setStatusCode(HttpResponseStatus.INTERNAL_SERVER_ERROR.code())
+					.end(HttpResponseStatus.INTERNAL_SERVER_ERROR.reasonPhrase());
 		}
 	}
 

@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.resource.YoreImageResource;
+import com.teles.yore.domain.api.YoreImage;
 import com.teles.yore.domain.api.YoreRequest;
-import com.teles.yore.domain.api.YoreResponse;
 
 import feign.hystrix.HystrixFeign;
 import feign.jackson.JacksonDecoder;
@@ -25,8 +25,8 @@ public class YoreClient implements YoreImageResource {
 	}
 
 	@Override
-	public HystrixCommand<YoreResponse> pixelate(YoreRequest req) {
-		HystrixCommand<YoreResponse> response = HystrixFeign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder())
+	public HystrixCommand<YoreImage> pixelate(YoreRequest req) {
+		HystrixCommand<YoreImage> response = HystrixFeign.builder().encoder(new JacksonEncoder()).decoder(new JacksonDecoder())
 				.target(YoreImageResource.class, this.url).pixelate(req);
 		return response;
 	}

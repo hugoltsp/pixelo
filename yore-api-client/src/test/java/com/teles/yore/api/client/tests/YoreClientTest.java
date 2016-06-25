@@ -18,12 +18,11 @@ import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.YoreClient;
 import com.teles.yore.domain.api.YoreImage;
 import com.teles.yore.domain.api.YoreRequest;
-import com.teles.yore.domain.api.YoreResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootApplication
 @SpringApplicationConfiguration(classes = { YoreClientTest.class })
-@ComponentScan({"com.teles.yore"})
+@ComponentScan({ "com.teles.yore" })
 public class YoreClientTest {
 
 	@Inject
@@ -34,16 +33,16 @@ public class YoreClientTest {
 		YoreRequest req = new YoreRequest();
 		YoreImage yoreImage = new YoreImage();
 
-		yoreImage.setImage(IOUtils.toByteArray(Paths.get("D:/a.jpg").toUri()));
+		yoreImage.setImage(IOUtils.toByteArray(Paths.get("/home/hugo/Imagens/Wallpapers/519345.jpg").toUri()));
 		yoreImage.setName("fodace.jpg");
-		
+
 		req.setPixelSize(5);
 		req.setYoreImage(yoreImage);
-		
+
 		YoreClient yoreClient = new YoreClient(env);
-		HystrixCommand<YoreResponse> cmd = yoreClient.pixelate(req);
-		YoreResponse pixelate = cmd.queue().get();
-		IOUtils.write(pixelate.getYoreImage().getImage(), new FileOutputStream("D:/" + pixelate.getYoreImage().getName()));
+		HystrixCommand<YoreImage> cmd = yoreClient.pixelate(req);
+		YoreImage pixelate = cmd.queue().get();
+		IOUtils.write(pixelate.getImage(), new FileOutputStream("/home/hugo/yore/test/" + pixelate.getName()));
 	}
 
 }

@@ -3,8 +3,6 @@ package com.teles.yore.api;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -17,8 +15,6 @@ import io.vertx.core.Vertx;
 @ComponentScan("com.teles.yore.api")
 public class YoreApi {
 
-	private static final Logger log = LoggerFactory.getLogger(YoreApi.class);
-	
 	@Inject
 	private YoreImageVerticle imageResource;
 
@@ -28,7 +24,6 @@ public class YoreApi {
 
 	@PostConstruct
 	public void init() {
-		log.info("Initializing Yore Rest Api..");
 		Vertx.vertx().deployVerticle(this.imageResource);
 	}
 
