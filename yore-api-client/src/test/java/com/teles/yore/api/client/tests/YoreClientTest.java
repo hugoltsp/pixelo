@@ -16,8 +16,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.YoreClient;
-import com.teles.yore.domain.api.YoreImage;
-import com.teles.yore.domain.api.YoreRequest;
+import com.teles.yore.domain.YoreImage;
+import com.teles.yore.domain.YoreRequest;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootApplication

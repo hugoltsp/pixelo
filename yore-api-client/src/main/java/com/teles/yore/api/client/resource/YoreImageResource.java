@@ -1,8 +1,8 @@
 package com.teles.yore.api.client.resource;
 
 import com.netflix.hystrix.HystrixCommand;
-import com.teles.yore.domain.api.YoreImage;
-import com.teles.yore.domain.api.YoreRequest;
+import com.teles.yore.domain.YoreImage;
+import com.teles.yore.domain.YoreRequest;
 
 import feign.Headers;
 import feign.RequestLine;

@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-import com.teles.yore.api.verticle.v1.YoreImageVerticle;
+import com.teles.yore.api.verticle.v1.YoreApiVerticle;
 
 import io.vertx.core.Vertx;
 
@@ -16,7 +16,7 @@ import io.vertx.core.Vertx;
 public class YoreApi {
 
 	@Inject
-	private YoreImageVerticle imageResource;
+	private YoreApiVerticle verticle;
 
 	public static void main(String[] args) {
 		SpringApplication.run(YoreApi.class, args);
@@ -24,7 +24,7 @@ public class YoreApi {
 
 	@PostConstruct
 	public void init() {
-		Vertx.vertx().deployVerticle(this.imageResource);
+		Vertx.vertx().deployVerticle(this.verticle);
 	}
 
 }

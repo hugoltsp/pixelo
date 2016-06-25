@@ -13,9 +13,9 @@ import org.junit.runner.RunWith;
 import org.springframework.mock.env.MockEnvironment;
 
 import com.jayway.restassured.RestAssured;
-import com.teles.yore.api.verticle.v1.YoreImageVerticle;
-import com.teles.yore.domain.api.YoreImage;
-import com.teles.yore.domain.api.YoreRequest;
+import com.teles.yore.api.verticle.v1.YoreApiVerticle;
+import com.teles.yore.domain.YoreImage;
+import com.teles.yore.domain.YoreRequest;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
@@ -40,7 +40,7 @@ public class ApiTests {
 		env.setProperty("server.port", newPort + "");
 		env.setProperty("yore.api.route.pixelate", API_V1_IMAGE);
 
-		this.vertx.deployVerticle(new YoreImageVerticle(env), context.asyncAssertSuccess());
+		this.vertx.deployVerticle(new YoreApiVerticle(env), context.asyncAssertSuccess());
 
 		RestAssured.baseURI = "http://localhost";
 		RestAssured.port = newPort;

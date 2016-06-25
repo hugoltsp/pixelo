@@ -1,4 +1,4 @@
-package com.teles.yore.domain.api;
+package com.teles.yore.domain;
 
 public class YoreImage {
 

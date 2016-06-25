@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 import com.netflix.config.ConfigurationManager;
 import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.resource.YoreImageResource;
-import com.teles.yore.domain.api.YoreImage;
-import com.teles.yore.domain.api.YoreRequest;
+import com.teles.yore.domain.YoreImage;
+import com.teles.yore.domain.YoreRequest;
 
 import feign.hystrix.HystrixFeign;
 import feign.jackson.JacksonDecoder;

@@ -8,8 +8,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import com.teles.yore.api.util.Pixelator;
-import com.teles.yore.domain.api.YoreImage;
-import com.teles.yore.domain.api.YoreRequest;
+import com.teles.yore.domain.YoreImage;
+import com.teles.yore.domain.YoreRequest;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.AbstractVerticle;
@@ -20,9 +20,9 @@ import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 
 @Component
-public class YoreImageVerticle extends AbstractVerticle {
+public class YoreApiVerticle extends AbstractVerticle {
 
-	private static final Logger log = LoggerFactory.getLogger(YoreImageVerticle.class);
+	private static final Logger log = LoggerFactory.getLogger(YoreApiVerticle.class);
 
 	private static final String SERVER_PORT = "server.port";
 
@@ -30,8 +30,8 @@ public class YoreImageVerticle extends AbstractVerticle {
 	private final String post;
 
 	@Inject
-	public YoreImageVerticle(Environment env) {
-		this.serverPort = env.getProperty(SERVER_PORT, int.class, 8080);
+	public YoreApiVerticle(Environment env) {
+		this.serverPort = env.getProperty(SERVER_PORT, int.class, 9090);
 		this.post = env.getProperty("yore.api.route.pixelate", String.class);
 	}
 
