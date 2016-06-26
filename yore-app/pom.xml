@@ -8,7 +8,7 @@
 	</parent>
 	<artifactId>yore-app</artifactId>
 	<packaging>war</packaging>
-	<name>Yore Webapp</name>
+	<name>Webapp</name>
 
 	<dependencies>
 
