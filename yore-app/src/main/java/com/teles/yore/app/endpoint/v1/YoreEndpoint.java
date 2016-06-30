@@ -21,7 +21,7 @@ import com.teles.yore.domain.YoreImage;
 import com.teles.yore.domain.YoreRequest;
 
 @RestController
-@RequestMapping(value = "/app/upload", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+@RequestMapping(value = "/app/upload", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class YoreEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(YoreEndpoint.class);
@@ -30,21 +30,21 @@ public class YoreEndpoint {
 	private YoreClient client;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public DeferredResult<ResponseEntity<Void>> pixelate(@RequestBody YoreRequest request) {
-		DeferredResult<ResponseEntity<Void>> result = new DeferredResult<>();
+	public DeferredResult<ResponseEntity<?>> pixelate(@RequestBody YoreRequest request) {
+		DeferredResult<ResponseEntity<?>> result = new DeferredResult<>();
 
 		try {
 
 			HystrixCommand<YoreImage> hystrixCommand = this.client.pixelate(request);
 			Future<YoreImage> future = hystrixCommand.queue();
 			YoreImage yoreImage = future.get();
-			result.setResult(ResponseEntity.ok().contentLength(yoreImage.getSize())
-					.contentType(MediaType.APPLICATION_JSON_UTF8).build());
-			
+			result.setResult(ResponseEntity.status(HttpStatus.OK).contentLength(yoreImage.getSize())
+					.contentType(MediaType.APPLICATION_JSON).body(yoreImage));
+
 		} catch (Exception e) {
 			log.error("Error", e);
 			result.setResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-					.contentType(MediaType.APPLICATION_JSON_UTF8).build());
+					.contentType(MediaType.APPLICATION_JSON).build());
 		}
 
 		return result;
