@@ -4,6 +4,8 @@ import java.lang.reflect.Method;
 
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +22,8 @@ import feign.jackson.JacksonEncoder;
 @Component
 public class YoreClient implements YoreImageResource {
 
+	private static final Logger log = LoggerFactory.getLogger(YoreClient.class);
+
 	private final String url;
 	private final int requestTimeout;
 
@@ -27,6 +31,7 @@ public class YoreClient implements YoreImageResource {
 	public YoreClient(Environment env) {
 		this.url = env.getProperty("yore.api.url");
 		this.requestTimeout = env.getProperty("yore.client.request.timeout", int.class, 2000);
+		log.info("Pointing client to {} with request timeout of {}", this.url, this.requestTimeout);
 		this.config();
 	}
 
