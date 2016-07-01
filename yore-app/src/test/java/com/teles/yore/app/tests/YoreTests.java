@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -57,6 +58,7 @@ public class YoreTests {
 	}
 
 	@Test
+	@Ignore
 	public void supported_http_method_and_valid_request_integration_test() throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
 		String json = mapper.writeValueAsString(createRequest());

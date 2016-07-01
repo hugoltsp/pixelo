@@ -26,7 +26,7 @@ public class YoreEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(YoreEndpoint.class);
 
-	private YoreClient client;
+	private final YoreClient client;
 
 	@Inject
 	public YoreEndpoint(YoreClient client) {

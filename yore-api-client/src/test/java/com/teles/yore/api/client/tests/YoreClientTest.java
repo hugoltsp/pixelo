@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import javax.inject.Inject;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,6 +30,7 @@ public class YoreClientTest {
 	private Environment env;
 
 	@Test
+	@Ignore
 	public void test() throws Exception {
 		YoreRequest req = new YoreRequest();
 		YoreImage yoreImage = new YoreImage();
