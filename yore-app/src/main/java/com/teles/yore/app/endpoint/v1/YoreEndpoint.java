@@ -26,8 +26,12 @@ public class YoreEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(YoreEndpoint.class);
 
-	@Inject
 	private YoreClient client;
+
+	@Inject
+	public YoreEndpoint(YoreClient client) {
+		this.client = client;
+	}
 
 	@RequestMapping(method = RequestMethod.POST)
 	public DeferredResult<ResponseEntity<?>> pixelate(@RequestBody YoreRequest request) {

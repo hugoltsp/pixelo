@@ -64,7 +64,7 @@ public class ApiTests {
 	private static YoreRequest createRequest() throws IOException {
 		YoreImage yoreImage = new YoreImage();
 		yoreImage.setName("sandy.jpg");
-		yoreImage.setImage(Files.readAllBytes(Paths.get("src/test/resources/photo.jpg")));
+		yoreImage.setImage(Files.readAllBytes(Paths.get("../photo.jpg")));
 
 		YoreRequest yoreRequest = new YoreRequest();
 		yoreRequest.setPixelSize(6);

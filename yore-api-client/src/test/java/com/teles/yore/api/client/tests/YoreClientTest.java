@@ -1,11 +1,11 @@
 package com.teles.yore.api.client.tests;
 
-import java.io.FileOutputStream;
+import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -33,8 +33,8 @@ public class YoreClientTest {
 		YoreRequest req = new YoreRequest();
 		YoreImage yoreImage = new YoreImage();
 
-		yoreImage.setImage(IOUtils.toByteArray(Paths.get("/home/hugo/Imagens/Wallpapers/519345.jpg").toUri()));
-		yoreImage.setName("fodace.jpg");
+		yoreImage.setImage(Files.readAllBytes(Paths.get("../photo.jpg")));
+		yoreImage.setName("photo.jpg");
 
 		req.setPixelSize(5);
 		req.setYoreImage(yoreImage);
@@ -42,7 +42,8 @@ public class YoreClientTest {
 		YoreClient yoreClient = new YoreClient(env);
 		HystrixCommand<YoreImage> cmd = yoreClient.pixelate(req);
 		YoreImage pixelate = cmd.queue().get();
-		IOUtils.write(pixelate.getImage(), new FileOutputStream("/home/hugo/yore/test/" + pixelate.getName()));
+
+		Assert.assertTrue(pixelate.getSize() > 0);
 	}
 
 }
