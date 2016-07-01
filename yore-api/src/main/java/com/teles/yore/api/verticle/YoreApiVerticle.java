@@ -1,4 +1,4 @@
-package com.teles.yore.api.verticle.v1;
+package com.teles.yore.api.verticle;
 
 import javax.inject.Inject;
 

@@ -13,7 +13,7 @@ import org.junit.runner.RunWith;
 import org.springframework.mock.env.MockEnvironment;
 
 import com.jayway.restassured.RestAssured;
-import com.teles.yore.api.verticle.v1.YoreApiVerticle;
+import com.teles.yore.api.verticle.YoreApiVerticle;
 import com.teles.yore.domain.YoreImage;
 import com.teles.yore.domain.YoreRequest;
 
