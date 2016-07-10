@@ -25,7 +25,7 @@
 
 <script src="/app/app.js"></script>
 </head>
-<body ng-controller="appController" >
+<body ng-controller="appController">
 
 	<header class="navbar navbar-static-top bs-docs-nav">
 		<div class="header-panel shadow-z-2">
@@ -76,20 +76,23 @@
 											</table>
 
 											<div class="row">
-											  <hr class="soften"/>
-											  <div class="alert" flow-drop flow-drag-enter="class='alert-success'" flow-drag-leave="class=''"
-										          ng-class="class">
-											    Drag And Drop your file here
-											  </div>
+												<hr class="soften" />
+												Drag And Drop your image below
+												<div class="alert" flow-drop
+													flow-drag-enter="class='alert-success'"
+													flow-drag-leave="class=''" ng-class="class">
+													<br/>
+													<br/>
+													<br/>
+													<br/>													
+													</div>
 												<div class="span6">
 													<span class="btn btn-raised btn-primary" flow-btn flow-btn
 														flow-attrs="{accept:'image/*'}"> <i
 														class="icon icon-file" flow-btn
 														flow-attrs="{accept:'image/*'}"> </i>Select Image
-													</span>
-													<span class="btn btn-raised btn-danger" ng-click="$flow.cancel()"> 
-														Remove
-													</span>
+													</span> <span class="btn btn-raised btn-danger"
+														ng-click="$flow.cancel()"> Remove </span>
 												</div>
 											</div>
 										</div>
