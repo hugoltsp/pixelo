@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html ng-app="app" flow-init
+	flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
+	flow-files-submitted="$flow.upload()">
 <head>
 <meta charset="ISO-8859-1">
 <title>Yore</title>
@@ -23,7 +25,7 @@
 
 <script src="/app/app.js"></script>
 </head>
-<body ng-controller="appController">
+<body ng-controller="appController" >
 
 	<header class="navbar navbar-static-top bs-docs-nav">
 		<div class="header-panel shadow-z-2">
@@ -46,23 +48,50 @@
 					<div class="bs-component">
 						<div class="jumbotron">
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-sm-12">
 									<div class="bs-component">
 										<div class="row">
-											<div class="col-sm-6">
-												<div class="slider shor slider-success noUi-target noUi-ltr noUi-horizontal noUi-connect">
-													<div class="noUi-base">
-														<div class="noUi-origin noUi-background noUi-stacking">
-															<div class="noUi-handle noUi-handle-lower"></div>
-														</div>
-													</div>
+											<div class="col-md-9">Sliiiiiider</div>
+										</div>
+										<div class="container">
+											<hr class="soften">
+											<table class="table table-hover table-bordered table-striped"
+												flow-transfers>
+												<thead>
+													<tr>
+														<th>Name</th>
+														<th>Size</th>
+														<th>Relative Path</th>
+														<th>Unique Identifier</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="file in transfers">
+														<td>{{file.name}}</td>
+														<td>{{file.size}}</td>
+														<td>{{file.relativePath}}</td>
+														<td>{{file.uniqueIdentifier}}</td>
+													</tr>
+												</tbody>
+											</table>
+
+											<div class="row">
+											  <hr class="soften"/>
+											  <div class="alert" flow-drop flow-drag-enter="class='alert-success'" flow-drag-leave="class=''"
+										          ng-class="class">
+											    Drag And Drop your file here
+											  </div>
+												<div class="span6">
+													<span class="btn btn-raised btn-primary" flow-btn flow-btn
+														flow-attrs="{accept:'image/*'}"> <i
+														class="icon icon-file" flow-btn
+														flow-attrs="{accept:'image/*'}"> </i>Select Image
+													</span>
+													<span class="btn btn-raised btn-danger" ng-click="$flow.cancel()"> 
+														Remove
+													</span>
 												</div>
 											</div>
-										</div>
-										<div class="form-group is-empty is-fileinput">
-											<div class="input-group">
-												asdasdsada
-								            </div>									
 										</div>
 									</div>
 								</div>
@@ -72,6 +101,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 </body>
