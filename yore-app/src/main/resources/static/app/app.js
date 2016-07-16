@@ -1,7 +1,8 @@
 'use strict'
 
-angular.module('app', [ 'flow' ]).config(['flowFactoryProvider', function(flowFactoryProvider) {
-		flowFactoryProvider.defaults = {
+angular.module('app', [ 'flow']).config(['flowFactoryProvider', function(flowFactoryProvider) {
+	
+	flowFactoryProvider.defaults = {
 			target : 'upload.php',
 			permanentErrors : [ 404, 500, 501 ],
 			maxChunkRetries : 1,
@@ -9,17 +10,23 @@ angular.module('app', [ 'flow' ]).config(['flowFactoryProvider', function(flowFa
 			simultaneousUploads : 4,
 			singleFile : true
 		};
-		flowFactoryProvider.on('catchAll', function(event) {
-			console.log('catchAll', arguments);
-		});}]).controller('appController', [ '$scope', function($scope) {
+	}]).controller('appController', [ '$scope', function($scope) {
 
+		$scope.req = {
+				yoreImage : {
+					image : null,
+					name : null
+				},
+				pixelSize : 5
+		}
+		
 	var init = function(){
 		var pixelSizeValueElement = document.getElementById('pixelSizeValue');
 		var slider = document.getElementById('pixelSizeSlider');
 		
 		noUiSlider.create(slider,{
 			start: 5,
-			orientation: 'vertical',
+			orientation: 'horizontal',
 			connect: "lower",
 			step: 1,
 			range: { 
@@ -29,18 +36,11 @@ angular.module('app', [ 'flow' ]).config(['flowFactoryProvider', function(flowFa
 		});
 		
 		slider .noUiSlider.on('update', function( values, handle ) {
+			$scope.req.pixelSize = values[handle];
 			pixelSizeValueElement.innerHTML = values[handle];
 		});
 	}
 	
 	init();
-			
-	$scope.request = {
-		yoreImage : {
-			image : null,
-			name : null
-		},
-		pixelSize : 5
-	}
 
 } ]);
