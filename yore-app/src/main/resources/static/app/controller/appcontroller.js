@@ -9,7 +9,11 @@ angular.module('app').controller('appController', [ '$scope',  function($scope) 
 		},
 		pixelSize : 5
 	}
-		
+
+	$scope.yoreUpload = function($flow){
+		console.log($flow.upload());
+	}
+	
 	var init = function(){
 		var pixelSizeValueElement = document.getElementById('pixelSizeValue');
 		var slider = document.getElementById('pixelSizeSlider');

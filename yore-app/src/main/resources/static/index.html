@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html ng-app="app" flow-init
-	flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]"
-	flow-files-submitted="$flow.upload()">
+	flow-file-added="!!{png:1,gif:1,jpg:1,jpeg:1}[$file.getExtension()]">
 <head>
 <meta charset="ISO-8859-1">
 <title>Yore</title>
@@ -25,6 +24,7 @@
 <script src="webjars/ng-flow/2.7.1/dist/ng-flow-standalone.min.js"></script>
 <script src="webjars/nouislider/8.5.1/distribute/nouislider.min.js"></script>
 <script src="webjars/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
+<script src="webjars/angular-animate/1.5.7/angular-animate.min.js"></script>
 
 <script src="/app/app.js"></script>
 <script src="/app/controller/appcontroller.js"></script>
@@ -48,7 +48,7 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="page-header">
-						<h5 id="container">Simply select an image and press the
+						<h5 id="container">Simply choose an image and press the
 							pixelate button</h5>
 					</div>
 					<div class="bs-component">
@@ -94,7 +94,9 @@
 													<br /> <br /> <br /> <br />
 												</div>
 												<div class="span6">
-													<span class="btn" ng-show="$flow.files.length">Pixelate!</span>
+													<span class="btn btn-raised btn-default" 
+														ng-show="$flow.files.length"
+														ng-click="yoreUpload($flow)">Pixelate!</span>
 													<span class="btn btn-raised btn-primary" flow-btn flow-btn
 														flow-attrs="{accept:'image/*'}"> <i
 														class="icon icon-file" flow-btn

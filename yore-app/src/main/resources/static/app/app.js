@@ -1,14 +1,15 @@
 'use strict'
 
-angular.module('app', [ 'flow', 'angular-loading-bar']).config(['flowFactoryProvider', function(flowFactoryProvider) {
+angular.module('app', [ 'flow', 'angular-loading-bar','ngAnimate']).config(['flowFactoryProvider', function(flowFactoryProvider) {
 	
 	flowFactoryProvider.defaults = {
-			target : 'upload.php',
+			target : 'app/upload',
 			permanentErrors : [ 404, 500, 501 ],
-			maxChunkRetries : 1,
+			maxChunkRetries : 0,
 			chunkRetryInterval : 5000,
 			simultaneousUploads : 4,
-			singleFile : true
+			singleFile : true,
+			testChunks: false
 		};
 	
 }]);
