@@ -11,9 +11,11 @@
 <link rel="stylesheet"
 	href="webjars/bootstrap/3.3.6/css/bootstrap-theme.min.css" />
 <link rel="stylesheet"
-	href="webjars/bootstrap-material-design/0.5.9/css/bootstrap-material-design.min.css">
+	href="webjars/bootstrap-material-design/0.5.9/css/bootstrap-material-design.min.css" />
 <link rel="stylesheet"
-	href="webjars/bootstrap-material-design/0.5.9/css/ripples.min.css">
+	href="webjars/bootstrap-material-design/0.5.9/css/ripples.min.css" />
+<link rel="stylesheet"
+	href="webjars/angular-loading-bar/0.9.0/loading-bar.min.css" />
 
 <script src="webjars/jquery/2.2.4/jquery.min.js"></script>
 <script src="webjars/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -22,8 +24,11 @@
 <script src="webjars/bootstrap-material-design/0.5.9/js/ripples.min.js"></script>
 <script src="webjars/ng-flow/2.7.1/dist/ng-flow-standalone.min.js"></script>
 <script src="webjars/nouislider/8.5.1/distribute/nouislider.min.js"></script>
+<script src="webjars/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
 
 <script src="/app/app.js"></script>
+<script src="/app/controller/appcontroller.js"></script>
+
 </head>
 <body ng-controller="appController">
 
@@ -59,35 +64,37 @@
 									<div class="col-md-12">
 										<div class="container">
 											<hr class="soften">
-											<table class="table table-hover table-bordered table-striped"
+											<!--  <table class="table table-hover table-bordered table-striped"
 												flow-transfers>
 												<thead>
 													<tr>
 														<th>Name</th>
 														<th>Size</th>
-														<th>Relative Path</th>
-														<th>Unique Identifier</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr ng-repeat="file in transfers">
 														<td>{{file.name}}</td>
 														<td>{{file.size}}</td>
-														<td>{{file.relativePath}}</td>
-														<td>{{file.uniqueIdentifier}}</td>
 													</tr>
 												</tbody>
-											</table>
-
+											</table> -->
+											
+											<div class="bs-component">
+											    <div class="thumbnail" ng-show="$flow.files.length">
+											      <img flow-img="$flow.files[0]" />
+											    </div>
+											</div>
 											<div class="row">
 												<hr class="soften" />
-												Drag And Drop your image below
+												Select or drag and drop your image below
 												<div class="alert" flow-drop
 													flow-drag-enter="class='alert-success'"
 													flow-drag-leave="class=''" ng-class="class">
 													<br /> <br /> <br /> <br />
 												</div>
 												<div class="span6">
+													<span class="btn" ng-show="$flow.files.length">Pixelate!</span>
 													<span class="btn btn-raised btn-primary" flow-btn flow-btn
 														flow-attrs="{accept:'image/*'}"> <i
 														class="icon icon-file" flow-btn
