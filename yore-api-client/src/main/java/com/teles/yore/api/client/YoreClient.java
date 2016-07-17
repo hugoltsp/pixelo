@@ -29,7 +29,7 @@ public class YoreClient implements YoreImageResource {
 
 	@Inject
 	public YoreClient(Environment env) {
-		this.url = env.getProperty("yore.api.url");
+		this.url = env.getProperty("yore.client.api.url", String.class, "http://localhost:9090/api/v1");
 		this.requestTimeout = env.getProperty("yore.client.request.timeout", int.class, 2000);
 		log.info("Pointing client to {} with request timeout of {}", this.url, this.requestTimeout);
 		this.config();

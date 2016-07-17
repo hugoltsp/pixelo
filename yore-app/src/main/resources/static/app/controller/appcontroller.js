@@ -2,16 +2,11 @@
 
 angular.module('app').controller('appController', [ '$scope',  function($scope) {
 
-	$scope.req = {
-		yoreImage : {
-			image : null,
-			name : null
-		},
-		pixelSize : 5
-	}
+	$scope.pixelSize = 5;
 
 	$scope.yoreUpload = function($flow){
-		console.log($flow.upload());
+		$flow.opts.query.pixelSize=$scope.pixelSize;
+		$flow.upload()
 	}
 	
 	var init = function(){
@@ -23,15 +18,16 @@ angular.module('app').controller('appController', [ '$scope',  function($scope) 
 			orientation: 'horizontal',
 			connect: "lower",
 			step: 1,
-			range: { 
+			range: { 	
 				'min': 1,
 				'max': 10
 			}
 		});
 		
 		slider.noUiSlider.on('update', function(values, handle) {
-			$scope.req.pixelSize = values[handle];
-			pixelSizeValueElement.innerHTML = values[handle];
+			var val = parseInt(values[handle]);
+			$scope.pixelSize = val;
+			pixelSizeValueElement.innerHTML = val;
 		});
 	}
 	

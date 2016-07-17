@@ -9,11 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.DeferredResult;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.netflix.hystrix.HystrixCommand;
 import com.teles.yore.api.client.YoreClient;
@@ -21,7 +22,7 @@ import com.teles.yore.domain.YoreImage;
 import com.teles.yore.domain.YoreRequest;
 
 @RestController
-@RequestMapping(value = "/app/upload", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/app/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 public class YoreEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(YoreEndpoint.class);
@@ -34,11 +35,19 @@ public class YoreEndpoint {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public DeferredResult<ResponseEntity<?>> pixelate(@RequestBody YoreRequest request) {
+	public DeferredResult<ResponseEntity<?>> pixelate(@RequestParam("file") MultipartFile file,
+			@RequestParam("pixelSize") int pixelSize) {
 		DeferredResult<ResponseEntity<?>> result = new DeferredResult<>();
 
 		try {
 
+			YoreRequest request = new YoreRequest();
+			request.setPixelSize(pixelSize);
+			YoreImage image = new YoreImage();
+			request.setYoreImage(image);
+			image.setName(file.getOriginalFilename());
+			image.setImage(file.getBytes());
+			
 			HystrixCommand<YoreImage> hystrixCommand = this.client.pixelate(request);
 			Future<YoreImage> future = hystrixCommand.queue();
 			YoreImage yoreImage = future.get();

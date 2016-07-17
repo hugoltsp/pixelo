@@ -12,7 +12,6 @@ import javax.imageio.ImageIO;
 public final class Pixelator {
 
 	private Pixelator() {
-
 	}
 
 	public static byte[] pixelate(byte[] imageToPixelate, int pixelSize) throws IOException {

@@ -21,4 +21,9 @@ public class YoreRequest {
 		this.pixelSize = pixelSize;
 	}
 
+	@Override
+	public String toString() {
+		return "YoreRequest [yoreImage=" + this.yoreImage + ", pixelSize=" + this.pixelSize + "]";
+	}
+
 }
