@@ -10,14 +10,15 @@ angular.module('app', [ 'flow']).config(['flowFactoryProvider', function(flowFac
 			simultaneousUploads : 4,
 			singleFile : true
 		};
-	}]).controller('appController', [ '$scope', function($scope) {
+	
+	}]).controller('appController', [ '$scope',  function($scope) {
 
 		$scope.req = {
-				yoreImage : {
-					image : null,
-					name : null
-				},
-				pixelSize : 5
+			yoreImage : {
+				image : null,
+				name : null
+			},
+			pixelSize : 5
 		}
 		
 	var init = function(){
@@ -32,10 +33,10 @@ angular.module('app', [ 'flow']).config(['flowFactoryProvider', function(flowFac
 			range: { 
 				'min': 1,
 				'max': 10
-			},
+			}
 		});
 		
-		slider .noUiSlider.on('update', function( values, handle ) {
+		slider.noUiSlider.on('update', function(values, handle) {
 			$scope.req.pixelSize = values[handle];
 			pixelSizeValueElement.innerHTML = values[handle];
 		});
@@ -43,4 +44,14 @@ angular.module('app', [ 'flow']).config(['flowFactoryProvider', function(flowFac
 	
 	init();
 
+    $scope.$on('flow::fileAdded', function (event, $flow, flowFile) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            $scope.filedata = event.target.result;
+            $scope.filename = flowFile.file.name;
+        };
+        reader.readAsDataURL(flowFile.file);
+        console.log(reader);
+    });
+	
 } ]);
