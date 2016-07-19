@@ -11,5 +11,4 @@ angular.module('app', [ 'flow', 'angular-loading-bar','ngAnimate']).config(['flo
 			singleFile : true,
 			testChunks: false
 		};
-	
 }]);

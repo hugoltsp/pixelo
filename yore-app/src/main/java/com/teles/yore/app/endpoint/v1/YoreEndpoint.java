@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ import com.teles.yore.domain.YoreImage;
 import com.teles.yore.domain.YoreRequest;
 
 @RestController
-@RequestMapping(value = "/app/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/app/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 public class YoreEndpoint {
 
 	private static final Logger log = LoggerFactory.getLogger(YoreEndpoint.class);
@@ -47,13 +48,19 @@ public class YoreEndpoint {
 			request.setYoreImage(image);
 			image.setName(file.getOriginalFilename());
 			image.setImage(file.getBytes());
-			
+
 			HystrixCommand<YoreImage> hystrixCommand = this.client.pixelate(request);
 			Future<YoreImage> future = hystrixCommand.queue();
 			YoreImage yoreImage = future.get();
-			result.setResult(ResponseEntity.status(HttpStatus.OK).contentLength(yoreImage.getSize())
-					.contentType(MediaType.APPLICATION_JSON).body(yoreImage));
 
+			HttpHeaders responseHeaders = new HttpHeaders();
+			responseHeaders.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+			responseHeaders.setContentLength(yoreImage.getSize());
+			responseHeaders.set("Content-disposition", "attachment; filename=" + yoreImage.getName());
+
+			ResponseEntity<byte[]> responseEntity = new ResponseEntity<>(yoreImage.getImage(), responseHeaders, HttpStatus.OK);
+			
+			result.setResult(responseEntity);
 		} catch (Exception e) {
 			log.error("Error", e);
 			result.setResult(ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

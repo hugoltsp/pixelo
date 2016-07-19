@@ -77,7 +77,7 @@
 			<artifactId>angular-animate</artifactId>
 			<version>1.5.7</version>
 		</dependency>
-
+		
 	</dependencies>
 
 	<build>
