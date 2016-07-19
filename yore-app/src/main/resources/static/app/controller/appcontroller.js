@@ -6,7 +6,7 @@ angular.module('app').controller('appController', [ '$scope',  function($scope) 
 
 	$scope.yoreUpload = function($flow){
 		$flow.opts.query.pixelSize=$scope.pixelSize;
-		$flow.upload()
+		$flow.upload();
 	}
 	
 	var init = function(){
@@ -32,5 +32,15 @@ angular.module('app').controller('appController', [ '$scope',  function($scope) 
 	}
 	
 	init();
+	
+	$scope.$on('flow::fileSuccess', function (event, $flow, flowFile, $file, $message) {
+		console.log(arguments);
+		 var a         = document.createElement('a');
+		 a.href        = 'data:jpg/image,' +  encodeURI($file);
+		 a.target      = '_blank';
+		 a.download    = 'huehue.jpg';
+		 document.body.appendChild(a);
+		 a.click();
+	});
 	
 } ]);
