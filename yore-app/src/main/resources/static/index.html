@@ -25,6 +25,9 @@
 <script src="webjars/nouislider/8.5.1/distribute/nouislider.min.js"></script>
 <script src="webjars/angular-loading-bar/0.9.0/loading-bar.min.js"></script>
 <script src="webjars/angular-animate/1.5.7/angular-animate.min.js"></script>
+<script src="webjars/ng-file-upload/12.0.4/ng-file-upload.min.js"></script>
+<script src="webjars/ng-file-upload/12.0.4/ng-file-upload-shim.min.js"></script>
+<script src="webjars/ng-file-upload/12.0.4/ng-file-upload-all.min.js"></script>
 
 <script src="/app/app.js"></script>
 <script src="/app/controller/appcontroller.js"></script>
@@ -65,28 +68,28 @@
 										<div class="container">
 											<hr class="soften">
 											<div class="bs-component">
-											    <div class="thumbnail" ng-show="$flow.files.length">
-											      <img flow-img="$flow.files[0]" />
+												<div class="thumbnail" ng-hide="!file">
+											      <img ngf-src="file"/>
 											    </div>
 											</div>
 											<div class="row">
 												<hr class="soften" />
-												Select or drag and drop your image below
-												<div class="alert" flow-drop
-													flow-drag-enter="class='alert-success'"
-													flow-drag-leave="class=''" ng-class="class">
-													<br /> <br /> <br /> <br />
+												<div ngf-drop ng-model="file" class="drop-box" 
+        											ngf-multiple="false"
+										        	ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">
+													Select or drag and drop your image below
+													<br /> <br /> <br /> <br /> <br /> <br /> <br />
 												</div>
 												<div class="span6">
 													<span class="btn btn-raised btn-default" 
-														ng-show="$flow.files.length"
-														ng-click="yoreUpload($flow, $file)">Pixelate!</span>
-													<span class="btn btn-raised btn-primary" flow-btn flow-btn
-														flow-attrs="{accept:'image/*'}"> <i
-														class="icon icon-file" flow-btn
-														flow-attrs="{accept:'image/*'}"> </i>Select Image
-													</span> <span class="btn btn-raised btn-danger"
-														ng-click="$flow.cancel()"> Remove </span>
+														ng-show="file"
+														ng-click="upload(file)">Pixelate!</span>
+													<span class="btn btn-raised btn-primary" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+													    ngf-accept="'image/*'" ngf-max-size="20MB"> <i
+														class="icon icon-file" > </i>Select Image
+													</span> 
+<!-- 													<span class="btn btn-raised btn-danger" -->
+<!-- 														ng-click="cancel(file)"> Remove </span> -->
 												</div>
 											</div>
 										</div>

@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('app', [ 'flow', 'angular-loading-bar','ngAnimate']).config(['flowFactoryProvider', function(flowFactoryProvider) {
+angular.module('app', [ 'flow', 'angular-loading-bar','ngAnimate','ngFileUpload']).config(['flowFactoryProvider', function(flowFactoryProvider) {
 	
 	flowFactoryProvider.defaults = {
 			target : 'app/upload',

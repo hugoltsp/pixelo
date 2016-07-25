@@ -1,13 +1,17 @@
 'use strict'
 
-angular.module('app').controller('appController', [ '$scope',  function($scope) {
+angular.module('app').controller('appController', [ '$scope','Upload', function($scope, Upload) {
 
 	$scope.pixelSize = 5;
 	
-	$scope.yoreUpload = function($flow, $file){
-		console.log(arguments);
-		$flow.opts.query.pixelSize=$scope.pixelSize;
-		$flow.upload();
+	$scope.upload = function(file){
+		console.log(file);
+		Upload.upload({
+			url:'app/upload',
+			resumeChunkSize:'20MB',
+            data: {file: file, 'pixelSize': $scope.pixelSize}
+		});
+		
 	}
 	
 	var init = function(){
@@ -33,15 +37,5 @@ angular.module('app').controller('appController', [ '$scope',  function($scope) 
 	}
 	
 	init();
-	
-	$scope.$on('flow::fileSuccess', function (event, $flow, flowFile, $file, $message) {
-		console.log(arguments);
-//		var a         = document.createElement('a');
-//		a.href        = "data:application/octet-stream," + $file;
-//		a.target      = '_blank';
-//		a.download    = flowFile.name;
-//		document.body.appendChild(a);
-//		a.click();
-	});
 	
 } ]);
