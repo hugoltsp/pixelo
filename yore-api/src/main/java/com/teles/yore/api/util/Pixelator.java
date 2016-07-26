@@ -9,12 +9,19 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.teles.yore.domain.YoreRequest;
+
 public final class Pixelator {
 
 	private Pixelator() {
 	}
 
-	public static byte[] pixelate(byte[] imageToPixelate, int pixelSize) throws IOException {
+	public static byte[] pixelate(YoreRequest request) throws IOException {
+		byte[] imageToPixelate = request.getYoreImage().getImage();
+		int pixelSize = request.getPixelSize();
+		String name = request.getYoreImage().getName();
+		String formatName = name.substring(name.lastIndexOf(".") + 1);
+
 		BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageToPixelate));
 		Raster src = img.getData();
 		WritableRaster dest = src.createCompatibleWritableRaster();
@@ -31,7 +38,7 @@ public final class Pixelator {
 		}
 		img.setData(dest);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ImageIO.write(img, "jpg", baos);
+		ImageIO.write(img, formatName, baos);
 		return baos.toByteArray();
 	}
 }

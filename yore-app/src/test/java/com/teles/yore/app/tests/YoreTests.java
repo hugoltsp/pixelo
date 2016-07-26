@@ -1,7 +1,10 @@
 package com.teles.yore.app.tests;
 
-import static org.springframework.http.MediaType.*;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA;
+import static org.springframework.http.MediaType.MULTIPART_FORM_DATA_VALUE;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -18,12 +21,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.mock.env.MockEnvironment;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.teles.yore.api.client.YoreClient;
 import com.teles.yore.app.endpoint.v1.YoreEndpoint;
 import com.teles.yore.domain.YoreImage;
@@ -52,20 +55,21 @@ public class YoreTests {
 	}
 
 	@Test
-	@Ignore
 	public void supported_http_method_and_invalid_request_test() throws Exception {
 		this.mockMvc.perform(post(API_V1).accept(APPLICATION_JSON).contentType(APPLICATION_JSON).content(""))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().is4xxClientError());
 	}
 
 	@Test
 	@Ignore
+	//FIXME
 	public void supported_http_method_and_valid_request_integration_test() throws Exception {
-		ObjectMapper mapper = new ObjectMapper();
-		String json = mapper.writeValueAsString(createRequest());
 
-		this.mockMvc.perform(post(API_V1).accept(MULTIPART_FORM_DATA_VALUE).contentType(MULTIPART_FORM_DATA_VALUE).content(json))
-				.andExpect(status().isOk());
+		YoreRequest mockRequest = createRequest();
+
+		MockMultipartFile file = new MockMultipartFile(mockRequest.getYoreImage().getName(), mockRequest.getYoreImage().getImage()); 
+		
+		this.mockMvc.perform(fileUpload(API_V1).file(file).contentType(MULTIPART_FORM_DATA)).andExpect(status().isOk());
 	}
 
 	private static YoreRequest createRequest() throws IOException {

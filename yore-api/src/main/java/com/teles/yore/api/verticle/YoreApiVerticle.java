@@ -57,7 +57,7 @@ public class YoreApiVerticle extends AbstractVerticle {
 
 		try {
 
-			byte[] pixelate = Pixelator.pixelate(request.getYoreImage().getImage(), request.getPixelSize());
+			byte[] pixelate = Pixelator.pixelate(request);
 
 			YoreImage yoreImage = new YoreImage();
 			yoreImage.setImage(pixelate);
