@@ -12,7 +12,10 @@ angular.module('app').controller('appController', [ '$scope','Upload', function(
 		});
 		
 		up.then(function(r){
+			console.log(r);
 			saveFile(r.data.image, r.data.name);
+		},function(r){
+			$.snackbar({content:"Ops!.. =/", style:"snackbar", timeout:3000});
 		});
 		
 	}
@@ -32,13 +35,13 @@ angular.module('app').controller('appController', [ '$scope','Upload', function(
 		var slider = document.getElementById('pixelSizeSlider');
 		
 		noUiSlider.create(slider,{
-			start: 5,
+			start: 8,
 			orientation: 'horizontal',
 			connect: "lower",
 			step: 1,
 			range: { 	
 				'min': 1,
-				'max': 10
+				'max': 15
 			}
 		});
 		
