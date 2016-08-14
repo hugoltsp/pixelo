@@ -12,7 +12,6 @@ angular.module('app').controller('appController', [ '$scope','Upload', function(
 		});
 		
 		up.then(function(r){
-			console.log(r);
 			saveFile(r.data.image, r.data.name);
 		},function(r){
 			$.snackbar({content:"Ops!.. =/", style:"snackbar", timeout:3000});
@@ -27,7 +26,6 @@ angular.module('app').controller('appController', [ '$scope','Upload', function(
 		a.download    = name;
 		document.body.appendChild(a);
 		a.click();
-        
 	};
 	
 	var init = function(){
