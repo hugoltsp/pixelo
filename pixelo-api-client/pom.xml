@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.teles</groupId>
-		<artifactId>yore</artifactId>
+		<artifactId>pixelo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>yore-api-client</artifactId>
+	<artifactId>pixelo-api-client</artifactId>
 	<name>API Client</name>
 
 	<dependencies>
@@ -49,7 +49,7 @@
 
 		<dependency>
 			<groupId>com.teles</groupId>
-			<artifactId>yore-domain</artifactId>
+			<artifactId>pixelo-domain</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 

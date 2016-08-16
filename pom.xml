@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.teles</groupId>
-	<artifactId>yore</artifactId>
+	<artifactId>pixelo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Yore Application Root</name>
@@ -21,10 +21,10 @@
 	</parent>
 
 	<modules>
-		<module>yore-api</module>
-		<module>yore-app</module>
-		<module>yore-domain</module>
-		<module>yore-api-client</module>
+		<module>pixelo-api</module>
+		<module>pixelo-app</module>
+		<module>pixelo-domain</module>
+		<module>pixelo-api-client</module>
 	</modules>
 
 	<dependencies>

@@ -3,10 +3,10 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.teles</groupId>
-		<artifactId>yore</artifactId>
+		<artifactId>pixelo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>yore-app</artifactId>
+	<artifactId>pixelo-app</artifactId>
 	<packaging>war</packaging>
 	<name>Webapp</name>
 
@@ -32,7 +32,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.teles</groupId>
-			<artifactId>yore-api-client</artifactId>
+			<artifactId>pixelo-api-client</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
@@ -92,7 +92,7 @@
 			<artifactId>snackbarjs</artifactId>
 			<version>1.1.0</version>
 		</dependency>
-		
+
 	</dependencies>
 
 	<build>
