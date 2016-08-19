@@ -1,6 +1,6 @@
 #Pixelo#
 
-Pixelo is a webapp to transform your images into a cool retro 8-bit style .
+Pixelo is a webapp to transform your images into cool, retro 8-bit style pictures.
 
 # Modules
  * API - Vert.x rest api
